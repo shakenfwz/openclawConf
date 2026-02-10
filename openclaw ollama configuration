@@ -1,0 +1,74 @@
+When Ollama runs on another host/port, There are only two places in the configuration file that require modification: agents.defaults.model.primary and models.providers
+PS: please do not directly copy the configuration.
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.6-3",
+    "lastTouchedAt": "2026-02-10T00:01:44.810Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-10T00:01:44.808Z",
+    "lastRunVersion": "2026.2.6-3",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "ollama/qwen3:14b-fp16"
+      },
+      "workspace": "/home/shaken/.openclaw/workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://192.168.0.111:11434/v1",
+        "apiKey": "ollama_local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "ollama/qwen3:14b-fp16",
+            "name": "ollama/qwen3:14b-fp16",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            //contextWindow must >16000
+            "contextWindow": 81920,
+            "maxTokens": 81920
+          }
+        ]
+      }
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "channels": {},
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "__OPENCLAW_REDACTED__"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "plugins": {
+    "enabled": true
+  }
+}
