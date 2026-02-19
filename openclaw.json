@@ -1,0 +1,130 @@
+# 此版本配置了memory_search的向量模型也是用ollama本地模型
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.15",
+    "lastTouchedAt": "2026-02-18T01:16:25.409Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-18T01:04:30.642Z",
+    "lastRunVersion": "2026.2.15",
+    "lastRunCommand": "configure",
+    "lastRunMode": "local"
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://192.168.7.111:11434/v1",
+        "apiKey": "ollama-local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "ollama/qwen3:14b-q8_0",
+            "name": "ollama/qwen3:14b-q8_0",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 81920,
+            "maxTokens": 81920
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "ollama/qwen3:14b-q8_0"
+      },
+      "models": {
+        "ollama/qwen3:14b-q8_0": {
+          "alias": "ollama"
+        }
+      },
+      "workspace": "/home/shaken/.openclaw/workspace",
+      "memorySearch": {
+        "enabled": true,
+        "provider": "openai",
+        "model": "qwen3-embedding:8b-fp16",
+        "remote": {
+          "baseUrl": "http://192.168.7.111:11434/v1/",
+          "apiKey": "ollama-local",
+	  "headers": { "X-Custom-Header": "value" }
+        },
+        "fallback": "none"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "appId": "cli_a901e05691381cbd",
+      "appSecret": "nD1ISR3Ay8kGbvYFnjzbxfEgupgTLVLI",
+      "domain": "feishu",
+      "groupPolicy": "open"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "b0e3a0b9c53d38f74e1305b117b1a84419e494489b2e72ed"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  },
+  "plugins": {
+    "enabled": true,
+    "entries": {
+      "feishu": {
+        "enabled": true
+      }
+    }
+  }
+}
